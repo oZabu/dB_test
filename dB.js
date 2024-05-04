@@ -2,7 +2,7 @@ const AudioContext = window.AudioContext || window.webkitAudioContext;
 const meter = document.getElementById('volume');
 
 function render(percent) {
-    console.log('Percent:', percent);
+    // console.log('Percent:', percent);
     meter.style.background = "hsl(" + percent * 3 + ",50%,50%)";
     meter.style.height = Math.min(Math.max(0, percent), 100) + '%';
 
@@ -12,6 +12,13 @@ function render(percent) {
     var omg = Math.trunc(percent);
 
     document.getElementById("text_dB").innerHTML = omg + "dB";
+
+    var masterDIV = document.getElementById("masterDIV");
+    if (90 < omg) {
+        masterDIV.style.backgroundColor = "gold";
+    } else {
+        masterDIV.style.backgroundColor = "white";
+    };
 }
 
 function onProcess(event) {
@@ -37,5 +44,3 @@ async function start() {
     const source = ctx.createMediaStreamSource(media);
     source.connect(processor);
 }
-
-
